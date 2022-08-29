@@ -7,9 +7,20 @@ const Compose = (): ReactElement => (
         headerTitle="New message"
         customHeader={<Header />}
     >
-        <div>
+        <div style={{
+            padding: 20
+        }}>
             <p>
-                new message
+                to
+            </p>
+            <p>
+                from
+            </p>
+            <p>
+                subject
+            </p>
+            <p>
+                message
             </p>
         </div>
     </Layout>
