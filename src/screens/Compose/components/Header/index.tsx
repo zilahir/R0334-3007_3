@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { IonIcon, NavContext } from '@ionic/react';
-import { close } from 'ionicons/icons';
+import { close, send } from 'ionicons/icons';
 import { useContext } from "react";
 
 const RootContainer = styled.div`
     display: flex;
     align-items: center;
-    justifyContent: center;
-    padding: 10px;
+    justify-content: space-between;
+    padding: 20px 30px;
 `
 
-const CloseIcon = styled(IonIcon)`
+const Icon = styled(IonIcon)`
     font-size: 40px;
 `
 
@@ -23,7 +23,13 @@ const Header = () => {
             padding: 0,
             margin: 0,
         }}>
-            <CloseIcon onClick={() => goBack()} icon={close} />
+            <Icon onClick={() => goBack()} icon={close} />
+        </p>
+        <p style={{
+            padding: 0,
+            margin: 0,
+        }}>
+            <Icon onClick={() => goBack()} icon={send} />
         </p>
     </RootContainer>
     )

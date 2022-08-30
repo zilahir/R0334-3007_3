@@ -1,6 +1,17 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import {
+    IonContent,
+    IonFab,
+    IonFabButton,
+    useIonRouter,
+    IonHeader,
+    IonPage,
+    IonTitle,
+    IonToolbar,
+    IonIcon
+    } from '@ionic/react';
 import { ReactElement } from 'react';
-
+import { addCircle } from 'ionicons/icons';
+import useWindowDimensions from '../../../hooks/useWindowDimension';
 interface ILayout {
     headerTitle: string;
     children: ReactElement | ReactElement[];
@@ -8,13 +19,18 @@ interface ILayout {
 }
 
 const Layout = ({ headerTitle, children, customHeader }: ILayout) => {
+
+    const router = useIonRouter();
+    const FOB_WIDTH = 56;
+    const { width, height } = useWindowDimensions();
+  
     return (
         (
             <IonPage>
                 <IonHeader>
                     <IonToolbar>
                         {
-                            customHeader && customHeader
+                        customHeader && customHeader
                         }
                     </IonToolbar>
                 </IonHeader>
@@ -28,7 +44,21 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout) => {
                     </IonHeader>
                     {children}
                 </IonContent>
-            </IonPage>
+                {
+                    router.routeInfo.pathname !== '/compose' && (
+                        <IonFab style={{
+                            position: "absolute",
+                            left: width - FOB_WIDTH - FOB_WIDTH * 0.5,
+                            top: height - FOB_WIDTH - FOB_WIDTH * 0.5,
+                      
+                        }}>
+                            <IonFabButton href="/compose">
+                                <IonIcon icon={addCircle} />
+                            </IonFabButton>
+                        </IonFab>
+                    )
+                }
+        </IonPage>
             )
     )
 }
