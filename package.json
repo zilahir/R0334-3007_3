@@ -26,6 +26,7 @@
     "ionicons": "^5.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-query": "^3.39.2",
     "react-redux": "^8.0.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

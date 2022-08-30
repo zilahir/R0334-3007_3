@@ -10,8 +10,12 @@ const RootContainer = styled.div`
     padding: 20px 30px;
 `
 
-const Icon = styled(IonIcon)`
-    font-size: 40px;
+interface IIcon {
+    fontSize: number;
+}
+
+const Icon = styled(IonIcon)<IIcon>`
+    font-size: ${({fontSize}) => fontSize}px
 `
 
 
@@ -23,13 +27,13 @@ const Header = () => {
             padding: 0,
             margin: 0,
         }}>
-            <Icon onClick={() => goBack()} icon={close} />
+            <Icon fontSize={40} onClick={() => goBack()} icon={close} />
         </p>
         <p style={{
             padding: 0,
             margin: 0,
         }}>
-            <Icon onClick={() => goBack()} icon={send} />
+            <Icon fontSize={26} onClick={() => goBack()} icon={send} />
         </p>
     </RootContainer>
     )

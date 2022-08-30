@@ -6,7 +6,7 @@ import Layout from "../../components/common/Layout";
 import Header from "./components/Header";
 
 const Divider = styled.div`
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #444;
     margin: 5px 0;
 `
 
