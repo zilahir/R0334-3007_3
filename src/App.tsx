@@ -26,6 +26,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Compose from './screens/Compose';
+import HomeScreen from './pages/Home';
 
 setupIonicReact();
 
@@ -36,7 +37,7 @@ const App: React.FC = () => {
         <IonReactRouter> 
             <IonRouterOutlet>
               <Route path="/">
-                <Tab1 />
+                <HomeScreen />
               </Route>
               <Route path="/compose">
                 <Compose />
