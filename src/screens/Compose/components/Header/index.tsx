@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { IonIcon, NavContext } from '@ionic/react';
+import { NavContext } from '@ionic/react';
 import { close, send } from 'ionicons/icons';
 import { useContext } from "react";
+import Icon from "../../../../components/common/Icon";
 
 const RootContainer = styled.div`
     display: flex;
@@ -9,15 +10,6 @@ const RootContainer = styled.div`
     justify-content: space-between;
     padding: 20px 30px;
 `
-
-interface IIcon {
-    fontSize: number;
-}
-
-const Icon = styled(IonIcon)<IIcon>`
-    font-size: ${({fontSize}) => fontSize}px
-`
-
 
 const Header = () => {
     const { goBack } = useContext(NavContext)

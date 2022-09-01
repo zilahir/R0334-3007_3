@@ -1,5 +1,7 @@
-import { IonAvatar, IonContent, IonItem, IonLabel, IonVirtualScroll } from "@ionic/react"
+import { IonContent, IonItem } from "@ionic/react"
+import { useContext } from "react";
 import { Virtuoso } from 'react-virtuoso';
+import { EmailContext } from "../../api/context";
 
 import Layout from '../../components/common/Layout';
 import Email from "./components/Email";
@@ -20,21 +22,22 @@ const EMAILS = [
 ]
 
 const HomeScreen: React.FC = () => {
+    const { emails } = useContext(EmailContext)
+
+    console.log("emails", emails)
+
   return (
     <Layout headerTitle='Home'>
       <IonContent>
       <Virtuoso
         style={{ height: '100%' }}
-        totalCount={EMAILS.length}
-        data={EMAILS}
+        totalCount={emails.length}
+        data={emails}
         itemContent={(index, email) => {
           return (
-            <div style={{ height: '56px' }}>
-              <IonItem>
+            <IonItem key={`email-${index}`}>
                 <Email email={email} />
-                <IonLabel>{index}</IonLabel>
-              </IonItem>
-            </div>
+            </IonItem>
           );
         }}
         />

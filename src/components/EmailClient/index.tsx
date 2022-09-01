@@ -1,5 +1,6 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 import { useQuery } from "react-query";
+import { EmailContext } from "../../api/context";
 import { useEmail } from "../../hooks/useEmail";
 
 interface IEmailClient {
@@ -8,9 +9,11 @@ interface IEmailClient {
 
 const EmailClient = ({children}: IEmailClient): ReactElement => {
     const { getEmail } = useEmail()
+    const { setEmails } = useContext(EmailContext)
     const { data } = useQuery(["getAllEmail"], getEmail, {
         enabled: true,
         retry: false,
+        onSuccess: (data => setEmails(data.emails))
     })
 
     console.log("allEmail", data)
