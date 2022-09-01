@@ -1,4 +1,4 @@
-import { IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonText } from "@ionic/react";
+import { IonItem, IonItemDivider, IonItemOption, IonItemOptions, IonItemSliding, IonText } from "@ionic/react";
 
 import { closeCircle, returnDownForward } from 'ionicons/icons';
 import Icon from "../../../../components/common/Icon";
@@ -37,9 +37,8 @@ const Email = ({ email }: IEmail) => (
                 <Icon fontSize={30} icon={returnDownForward} />
             </IonItemOption>
         </IonItemOptions>
-        <IonItem style={{
+        <IonItem lines="none" style={{
             display: "flex",
-            margin: "0",
             justifyContent: "center",
             alignItems: "center",
         }}>
