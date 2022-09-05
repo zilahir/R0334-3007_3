@@ -15,7 +15,7 @@ interface IEmailContextProvider {
     children: ReactElement | ReactElement[]
 }
 
-const ContextProvider = ({children}: IEmailContextProvider) => {
+const RootContextProvider = ({children}: IEmailContextProvider) => {
     const [emails, setEmails] = useState<SingleEmail[]>([])
     const [newEmail, composeNewEmail] = useState<NewEmail>({} as NewEmail)
     return (
@@ -25,4 +25,4 @@ const ContextProvider = ({children}: IEmailContextProvider) => {
     )
 }
 
-export default ContextProvider
+export default RootContextProvider

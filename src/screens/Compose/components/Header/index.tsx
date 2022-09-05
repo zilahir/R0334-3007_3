@@ -8,6 +8,7 @@ import Icon from "../../../../components/common/Icon";
 import { EmailContext } from "../../../../api/context";
 import { useEmail } from "../../../../hooks/useEmail";
 import { NewEmail } from "../..";
+import { NotificationContext } from "../../../../components/common/Notification/context";
 
 const RootContainer = styled.div`
     display: flex;
@@ -20,13 +21,17 @@ const Header = () => {
     const { sendEmail } = useEmail()
     const { goBack } = useContext(NavContext)
     const { newEmail, composeNewEmail } = useContext(EmailContext)
-
+    const { addNewNotificaion } = useContext(NotificationContext)
 
     const { mutate: sendNewEmail } = useMutation(["2faLogin"], sendEmail, {
         retry: false,
         onSuccess: () => {
-          // TODO: show some notification
           composeNewEmail({ } as NewEmail)
+          addNewNotificaion({
+            message: "Email has been sent!",
+            severity: "success",
+            timestamp: new Date().getTime(),
+          });
         },
       });
 

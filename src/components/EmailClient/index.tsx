@@ -19,7 +19,7 @@ const EmailClient = ({children}: IEmailClient): ReactElement => {
 
     return (
         <>
-        {children}
+            {children}
         </>
     )
 }

@@ -9,9 +9,11 @@ import {
     IonToolbar,
     IonIcon
     } from '@ionic/react';
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 import { addCircle } from 'ionicons/icons';
 import useWindowDimensions from '../../../hooks/useWindowDimension';
+import { NotificationContext } from '../Notification/context';
+import Notification from '../Notification';
 interface ILayout {
     headerTitle: string;
     children: ReactElement | ReactElement[];
@@ -23,6 +25,7 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout) => {
     const router = useIonRouter();
     const FOB_WIDTH = 56;
     const { width, height } = useWindowDimensions();
+    const { notifications } = useContext(NotificationContext)
   
     return (
         (
@@ -57,6 +60,15 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout) => {
                             </IonFabButton>
                         </IonFab>
                     )
+                }
+                {
+                    notifications.map(({message, severity, timestamp}) => (
+                        <Notification
+                            severity={severity}
+                            message={message}
+                            timestamp={timestamp}
+                        />
+                    ))
                 }
         </IonPage>
             )

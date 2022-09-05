@@ -5,16 +5,19 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import ApiClientProvider from './api/ApiClientProvider';
 import EmailClient from './components/EmailClient';
-import ContextProvider from './api/context';
+import NotificationProvider from './components/common/Notification/context';
+import RootContextProvider from './api/context';
 
 ReactDOM.render(
   <React.StrictMode>
     <ApiClientProvider>
-      <ContextProvider>
-        <EmailClient>
-          <App />
-        </EmailClient>
-        </ContextProvider>
+      <RootContextProvider>
+        <NotificationProvider>
+          <EmailClient>
+            <App />
+          </EmailClient>
+        </NotificationProvider>
+        </RootContextProvider>
     </ApiClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
