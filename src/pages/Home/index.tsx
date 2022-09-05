@@ -10,7 +10,10 @@ const HomeScreen = (): ReactElement => {
     const { emails } = useContext(EmailContext)
 
     return (
-        <Layout headerTitle={`Emails (${emails.filter(({isRead}) => isRead === false).length})`}>
+        <Layout
+            headerTitle={`Emails (${emails.filter(({isRead}) => isRead === false).length})`}
+            headerHeight={180}
+        >
             <IonContent>
             {
                 <Virtuoso

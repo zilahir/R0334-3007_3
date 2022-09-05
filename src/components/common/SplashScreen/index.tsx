@@ -4,7 +4,7 @@ import useWindowDimensions from "../../../hooks/useWindowDimension";
 import Loader from "../Loader";
 
 const SplashScreen = (): ReactElement => {
-    const { height, width } = useWindowDimensions()
+    const { width } = useWindowDimensions()
     return (
         <IonPage>
         <IonContent
@@ -43,7 +43,7 @@ const SplashScreen = (): ReactElement => {
                         fontSize: 20,
                         color: "#fff"
                     }}>
-                        Email Client App
+                        <code>Fake</code> Email Client App
                     </IonText>
                 </div>
             </div>

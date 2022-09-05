@@ -25,9 +25,10 @@ interface ILayout {
     headerTitle: string;
     children: ReactElement | ReactElement[];
     customHeader?: ReactElement | ReactElement[];
+    headerHeight?: number,
 }
 
-const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement => {
+const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout): ReactElement => {
 
     const router = useIonRouter();
     const FOB_WIDTH = 56;
@@ -74,7 +75,7 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
                         />
                     </IonRefresher>
                     <IonHeader style={{
-                        height: 140,
+                        height: headerHeight || "unset",
                         display: "flex",
                         alignItems: "center",
                     }} collapse="fade">

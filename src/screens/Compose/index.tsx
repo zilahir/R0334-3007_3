@@ -49,9 +49,6 @@ const Compose = (): ReactElement => {
                                 placeholder="Message"
                                 value={newEmail.content}
                                 autoGrow
-                                style={{
-                                    height: "50%"
-                                }}
                             />
                         </IonItem>
                     </IonCard>
