@@ -1,4 +1,4 @@
-import { IonContent, IonItem } from "@ionic/react"
+import { IonContent } from "@ionic/react"
 import { useContext } from "react";
 import { Virtuoso } from 'react-virtuoso';
 import { EmailContext } from "../../api/context";

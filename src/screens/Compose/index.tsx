@@ -1,56 +1,61 @@
-import { IonContent, IonInput, IonItem, IonTextarea } from "@ionic/react";
-import { ReactElement, useState } from "react";
-import styled from "styled-components"
+import { IonCard, IonContent, IonInput, IonItem, IonTextarea } from "@ionic/react";
+import { ReactElement, useContext } from "react";
+import { EmailContext } from "../../api/context";
 
 import Layout from "../../components/common/Layout";
 import Header from "./components/Header";
 
-const Divider = styled.div`
-    border-bottom: 1px solid #444;
-    margin: 5px 0;
-`
+export interface NewEmail {
+    to: string,
+    subject?: string,
+    content: string,
+}
 
 const Compose = (): ReactElement => {
-    const [to, setTo] = useState<string>("")
-    const [subject, setSubject] = useState<string>("")
-    const [message, setMessage] = useState<string>("")
+    const { composeNewEmail, newEmail } = useContext(EmailContext)
+
+    function handleNewEmailInput(field: string, inputValue: string): void {
+        composeNewEmail((value) => ({
+            ...value,
+            [field]: inputValue
+        }))
+    }
 
     return (
         <Layout
             headerTitle="New message"
             customHeader={<Header />}
         >
-            <IonContent fullscreen>
-                <IonItem>
-                    <IonInput 
-                        onIonChange={(event => setTo(event.detail.value as string))}
-                        placeholder="To"
-                    />
-                </IonItem>
-                <Divider />
-                <IonItem>
-                    <IonInput 
-                        value="demo@example.com"
-                        placeholder="From"
-                        disabled
-                    />
-                </IonItem>
-                <Divider />
-                <IonItem>
-                    <IonInput 
-                        onIonChange={(event => setSubject(event.detail.value as string))}
-                        placeholder="Subject"
-                    />
-                </IonItem>
-                <Divider />
-                <IonItem>
-                    <IonTextarea 
-                        onIonChange={event => setMessage(event.detail.value as string)}
-                        placeholder="Message"
-                        autoGrow
-                    />
-                </IonItem>
-            </IonContent>
+                <IonContent>
+                    <IonCard>
+                        <IonItem>
+                            <IonInput
+                                onIonChange={(event => handleNewEmailInput("to", event.detail.value as string))}
+                                placeholder="To"
+                                value={newEmail.to}
+                            />
+                        </IonItem>
+                        
+                        <IonItem>
+                            <IonInput 
+                                onIonChange={(event => handleNewEmailInput("subject", event.detail.value as string))}
+                                placeholder="Subject"
+                                value={newEmail.subject}
+                            />
+                        </IonItem>
+                        <IonItem>
+                            <IonTextarea 
+                                onIonChange={event => handleNewEmailInput("content", event.detail.value as string)}
+                                placeholder="Message"
+                                value={newEmail.content}
+                                autoGrow
+                                style={{
+                                    height: "50%"
+                                }}
+                            />
+                        </IonItem>
+                    </IonCard>
+                </IonContent>
         </Layout>
     )
 }

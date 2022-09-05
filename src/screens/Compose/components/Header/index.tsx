@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { NavContext } from '@ionic/react';
 import { close, send } from 'ionicons/icons';
 import { useContext } from "react";
+import { useMutation } from "react-query";
+
 import Icon from "../../../../components/common/Icon";
+import { EmailContext } from "../../../../api/context";
+import { useEmail } from "../../../../hooks/useEmail";
+import { NewEmail } from "../..";
 
 const RootContainer = styled.div`
     display: flex;
@@ -12,7 +17,19 @@ const RootContainer = styled.div`
 `
 
 const Header = () => {
+    const { sendEmail } = useEmail()
     const { goBack } = useContext(NavContext)
+    const { newEmail, composeNewEmail } = useContext(EmailContext)
+
+
+    const { mutate: sendNewEmail } = useMutation(["2faLogin"], sendEmail, {
+        retry: false,
+        onSuccess: () => {
+          // TODO: show some notification
+          composeNewEmail({ } as NewEmail)
+        },
+      });
+
     return (
         <RootContainer>
         <p style={{
@@ -25,7 +42,7 @@ const Header = () => {
             padding: 0,
             margin: 0,
         }}>
-            <Icon fontSize={26} onClick={() => goBack()} icon={send} />
+            <Icon fontSize={26} onClick={() => sendNewEmail(newEmail)} icon={send} />
         </p>
     </RootContainer>
     )

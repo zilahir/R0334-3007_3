@@ -10,13 +10,13 @@ interface IEmailClient {
 const EmailClient = ({children}: IEmailClient): ReactElement => {
     const { getEmail } = useEmail()
     const { setEmails } = useContext(EmailContext)
-    const { data } = useQuery(["getAllEmail"], getEmail, {
+
+    useQuery(["getAllEmail"], getEmail, {
         enabled: true,
         retry: false,
         onSuccess: (data => setEmails(data.emails))
     })
 
-    console.log("allEmail", data)
     return (
         <>
         {children}
