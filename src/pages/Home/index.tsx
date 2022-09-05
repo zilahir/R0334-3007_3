@@ -8,27 +8,30 @@ import Email from "./components/Email";
 
 const HomeScreen = (): ReactElement => {
     const { emails } = useContext(EmailContext)
+
     return (
         <Layout headerTitle={`Emails (${emails.filter(({isRead}) => isRead === false).length})`}>
             <IonContent>
-            <Virtuoso
-                style={{ height: '100%', margin: "0 10px", paddingBottom: 150, }}
-                totalCount={emails.length}
-                data={emails}
-                itemContent={(index, email) => {
-                return (
-                    <div
-                        key={`email-${index + email.id}`.toString()}
-                        style={{
-                            margin: "10px 0",
-                            borderBottom: "1px dotted #ccc",
-                        }}
-                    >
-                        <Email email={email} />
-                    </div>
-                );
-                }}
-                />
+            {
+                <Virtuoso
+                    style={{ height: '100%', margin: "0 10px", paddingBottom: 150, }}
+                    totalCount={emails.length}
+                    data={emails}
+                    itemContent={(index, email) => {
+                    return (
+                        <div
+                            key={`email-${index + email.id}`.toString()}
+                            style={{
+                                margin: "10px 0",
+                                borderBottom: "1px dotted #ccc",
+                            }}
+                        >
+                            <Email email={email} />
+                        </div>
+                    );
+                    }}
+                    />
+            }
             </IonContent>
         </Layout>
     );

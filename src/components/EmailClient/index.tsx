@@ -1,3 +1,4 @@
+import { sortBy } from "lodash"
 import { ReactElement, useContext } from "react";
 import { useQuery } from "react-query";
 import { EmailContext } from "../../api/context";
@@ -14,7 +15,7 @@ const EmailClient = ({children}: IEmailClient): ReactElement => {
     useQuery(["getAllEmail"], getEmail, {
         enabled: true,
         retry: false,
-        onSuccess: (data => setEmails(data.emails))
+        onSuccess: (data => setEmails(sortBy(data.emails, ["sentAt"], ["asc"])))
     })
 
     return (

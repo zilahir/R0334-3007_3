@@ -7,14 +7,19 @@ import {
     IonPage,
     IonTitle,
     IonToolbar,
-    IonIcon
+    IonIcon,
+    IonRefresher,
+    IonRefresherContent,
+    RefresherEventDetail
     } from '@ionic/react';
-import { ReactElement, useContext } from 'react';
+import { ReactElement, useContext, useState } from 'react';
 import { addCircle } from 'ionicons/icons';
 
 import useWindowDimensions from '../../../hooks/useWindowDimension';
 import { NotificationContext } from '../Notification/context';
 import Notification from '../Notification';
+import { useEmail } from '../../../hooks/useEmail';
+import { EmailContext } from '../../../api/context';
 interface ILayout {
     headerTitle: string;
     children: ReactElement | ReactElement[];
@@ -27,6 +32,21 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
     const FOB_WIDTH = 56;
     const { width, height } = useWindowDimensions();
     const { notifications } = useContext(NotificationContext)
+    const [isLoading, toggleLoading] = useState<boolean>(false);
+
+    const { setEmails } = useContext(EmailContext)
+    const { getEmail } = useEmail()
+
+    function doRefresh(event: CustomEvent<RefresherEventDetail>) {
+        toggleLoading(true)
+        getEmail().then(emails => {
+            setEmails(emails)
+        })
+        setTimeout(() => {
+            event.detail.complete();
+            toggleLoading(false)
+        }, 3000)
+    }
   
     return (
         (
@@ -43,6 +63,18 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
                     )
                 }
                 <IonContent>
+                    <IonRefresher
+                        // slot='fixed'
+                        pullFactor={0.5}
+                        pullMin={100}
+                        pullMax={200}
+                        onIonRefresh={(event): void => doRefresh(event)}
+                    >
+                        <IonRefresherContent 
+                            refreshingSpinner="dots"
+                            pullingText="Pull to refresh"
+                        />
+                    </IonRefresher>
                     <IonHeader style={{
                         height: 140,
                         display: "flex",
@@ -54,7 +86,7 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
                             </IonTitle>
                         </IonToolbar>
                     </IonHeader>
-                    {children}
+                    {!isLoading && children}
                 </IonContent>
                 {
                     router.routeInfo.pathname !== '/compose' && (

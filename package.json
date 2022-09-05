@@ -78,6 +78,7 @@
   "devDependencies": {
     "@capacitor/cli": "4.1.0",
     "@ionic/lab": "3.2.13",
+    "@types/lodash": "^4.14.184",
     "@types/styled-components": "^5.1.26"
   },
   "description": "An Ionic project"
