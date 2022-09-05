@@ -12,7 +12,7 @@ import {
     IonRefresherContent,
     RefresherEventDetail
     } from '@ionic/react';
-import { ReactElement, useContext, useState } from 'react';
+import { ReactElement, useContext } from 'react';
 import { addCircle } from 'ionicons/icons';
 
 import useWindowDimensions from '../../../hooks/useWindowDimension';
