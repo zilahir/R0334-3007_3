@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useState, Dispatch, SetStateAction } from "react";
+import { createContext, ReactElement, useState, Dispatch, SetStateAction, useEffect } from "react";
 import { SingleEmail } from "../../pages/Home/components/Email";
 import { NewEmail } from "../../screens/Compose";
 
@@ -18,6 +18,7 @@ interface IEmailContextProvider {
 const RootContextProvider = ({children}: IEmailContextProvider) => {
     const [emails, setEmails] = useState<SingleEmail[]>([])
     const [newEmail, composeNewEmail] = useState<NewEmail>({} as NewEmail)
+
     return (
         <EmailContext.Provider value={{emails, setEmails, newEmail, composeNewEmail}}>
             {children}

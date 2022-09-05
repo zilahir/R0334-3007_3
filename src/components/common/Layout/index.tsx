@@ -20,6 +20,7 @@ import { NotificationContext } from '../Notification/context';
 import Notification from '../Notification';
 import { useEmail } from '../../../hooks/useEmail';
 import { EmailContext } from '../../../api/context';
+import Loader from '../Loader';
 interface ILayout {
     headerTitle: string;
     children: ReactElement | ReactElement[];
@@ -39,13 +40,13 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
 
     function doRefresh(event: CustomEvent<RefresherEventDetail>) {
         toggleLoading(true)
-        getEmail().then(emails => {
+        getEmail().then(({emails}) => {
             setEmails(emails)
+            setTimeout(() => {
+                toggleLoading(false)
+                event.detail.complete();
+            }, 3000)
         })
-        setTimeout(() => {
-            event.detail.complete();
-            toggleLoading(false)
-        }, 3000)
     }
   
     return (
@@ -64,10 +65,10 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
                 }
                 <IonContent>
                     <IonRefresher
-                        // slot='fixed'
-                        pullFactor={0.5}
-                        pullMin={100}
-                        pullMax={200}
+                        style={{
+                            top: 50,
+                        }}
+                        slot='fixed'
                         onIonRefresh={(event): void => doRefresh(event)}
                     >
                         <IonRefresherContent 

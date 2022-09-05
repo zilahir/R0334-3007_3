@@ -1,5 +1,5 @@
 import { sortBy } from "lodash"
-import { ReactElement, useContext } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { EmailContext } from "../../api/context";
 import { useEmail } from "../../hooks/useEmail";
@@ -17,6 +17,10 @@ const EmailClient = ({children}: IEmailClient): ReactElement => {
         retry: false,
         onSuccess: (data => setEmails(sortBy(data.emails, ["sentAt"], ["asc"])))
     })
+
+    useEffect(() => {
+
+    }, [])
 
     return (
         <>
