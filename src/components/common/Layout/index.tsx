@@ -20,6 +20,7 @@ import { NotificationContext } from '../Notification/context';
 import Notification from '../Notification';
 import { useEmail } from '../../../hooks/useEmail';
 import { EmailContext } from '../../../api/context';
+import { EmailType } from '../../../screens/Compose';
 
 interface ILayout {
     headerTitle: string;
@@ -39,7 +40,7 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
     const { getEmail } = useEmail()
 
     function doRefresh(event: CustomEvent<RefresherEventDetail>) {
-        getEmail().then(({emails}) => {
+        getEmail(EmailType.INCOMING).then(({emails}) => {
             setEmails(emails)
             setTimeout(() => {
                 event.detail.complete();

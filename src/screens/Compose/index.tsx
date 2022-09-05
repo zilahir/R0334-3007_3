@@ -5,10 +5,16 @@ import { EmailContext } from "../../api/context";
 import Layout from "../../components/common/Layout";
 import Header from "./components/Header";
 
+export enum EmailType {
+    INCOMING = "INCOMING",
+    OUTGOING = "OUTGOING",
+}
+
 export interface NewEmail {
     to: string,
     subject?: string,
     content: string,
+    emailType: EmailType
 }
 
 const Compose = (): ReactElement => {

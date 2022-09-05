@@ -23,7 +23,7 @@ const Header = () => {
     const { newEmail, composeNewEmail } = useContext(EmailContext)
     const { addNewNotificaion } = useContext(NotificationContext)
 
-    const { mutate: sendNewEmail } = useMutation(["2faLogin"], sendEmail, {
+    const { mutate: sendNewEmail } = useMutation(["newEmail"], sendEmail, {
         retry: false,
         onSuccess: () => {
           composeNewEmail({ } as NewEmail)

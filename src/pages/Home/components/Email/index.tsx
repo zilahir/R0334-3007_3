@@ -2,7 +2,10 @@ import { IonCard, IonItemOption, IonItemOptions, IonItemSliding, IonText } from 
 import { format } from "date-fns"
 
 import { closeCircle, returnDownForward } from 'ionicons/icons';
+import { useMutation } from "react-query";
+// import { EmailContext } from "../../../../api/context";
 import Icon from "../../../../components/common/Icon";
+import { useEmail } from "../../../../hooks/useEmail";
 
 export interface SingleEmail {
     sender: string;
@@ -10,6 +13,7 @@ export interface SingleEmail {
     content: string;
     isRead: boolean;
     id: string;
+    _id?: string;
 }
 
 interface IEmail {
@@ -28,70 +32,86 @@ function createEmailContentExceprt(email: string) {
     return `${email.substring(0, 40)}...`
 }
 
-const Email = ({ email }: IEmail) => (
-    <IonItemSliding>
-        <IonItemOptions side="start">
-            <IonItemOption color="danger" onClick={() => console.log('favorite clicked')}>
-                <Icon fontSize={30} icon={closeCircle} />
-            </IonItemOption>
-            <IonItemOption onClick={() => console.log('share clicked')}>
-                <Icon fontSize={30} icon={returnDownForward} />
-            </IonItemOption>
-        </IonItemOptions>
-        <IonCard style={{
-            display: "flex",
-            padding: 10,
-            margin: "3px 15px",
-        }}>
-            <div style={{
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
+const Email = ({ email }: IEmail) => {
+    // const { setEmails, emails } = useContext(EmailContext)
+    const { markEmailAsReadById } = useEmail()
+
+    const { mutate: handleMarkEmailAsReadFn } = useMutation(["markAsRead"], markEmailAsReadById, {
+        retry: false
+    });
+
+    function handleEmailAsRead(idToMark: string) {
+        console.log("email", email);
+        return handleMarkEmailAsReadFn(idToMark);
+    }
+    return (
+        <IonItemSliding>
+            <IonItemOptions side="start">
+                <IonItemOption color="danger" onClick={() => console.log('favorite clicked')}>
+                    <Icon fontSize={30} icon={closeCircle} />
+                </IonItemOption>
+                <IonItemOption onClick={() => console.log('share clicked')}>
+                    <Icon fontSize={30} icon={returnDownForward} />
+                </IonItemOption>
+            </IonItemOptions>
+            <IonCard
+                onClick={():void => handleEmailAsRead(email._id as string)}
+                style={{
+                    display: "flex",
+                    padding: 10,
+                    margin: "3px 15px",
+                    backgroundColor: email.isRead ? "#060930" : "#595B83",
             }}>
                 <div style={{
-                    width: 60,
-                    height: 60,
-                    borderRadius: "100%",
-                    backgroundColor: "#ccc",
-                    justifyContent: "center",
                     alignItems: "center",
+                    justifyContent: "center",
                     display: "flex",
                 }}>
-                    <IonText style={{
-                    textTransform: "uppercase",
-                }}>
-                    {
-                        createSenderInitials(email.sender)
-                    }
-                </IonText>
-                </div>
-            </div>
-            <div style={{
-                padding: 10,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                flex: 1,
-                gap: 8,
-            }}>
-                <IonText>
-                    {
-                        createSenderName(email.sender)
-                    }
-                </IonText>
-                <IonText style={{
-                    fontSize: 20,
-                }}>
-                    {createEmailContentExceprt(email.content)}
-                </IonText>
-                <div>
-                    <IonText>
-                        {format(new Date(email.sentAt), "dd.MM.yyyy")}
+                    <div style={{
+                        width: 60,
+                        height: 60,
+                        borderRadius: "100%",
+                        backgroundColor: "#ccc",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                    }}>
+                        <IonText style={{
+                        textTransform: "uppercase",
+                    }}>
+                        {
+                            createSenderInitials(email.sender)
+                        }
                     </IonText>
+                    </div>
                 </div>
-            </div>
-        </IonCard>
-    </IonItemSliding>
-)
+                <div style={{
+                    padding: 10,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    flex: 1,
+                    gap: 8,
+                }}>
+                    <IonText>
+                        {
+                            createSenderName(email.sender)
+                        }
+                    </IonText>
+                    <IonText style={{
+                        fontSize: 20,
+                    }}>
+                        {createEmailContentExceprt(email.content)}
+                    </IonText>
+                    <div>
+                        <IonText>
+                            {format(new Date(email.sentAt), "dd.MM.yyyy")}
+                        </IonText>
+                    </div>
+                </div>
+            </IonCard>
+        </IonItemSliding>
+    )
+}
 
 export default Email

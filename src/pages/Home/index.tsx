@@ -22,7 +22,7 @@ const HomeScreen = (): ReactElement => {
                     data={emails}
                     itemContent={(index, email) => {
                     return (
-                        <Email key={email.id} email={email} />
+                        <Email key={email._id} email={email} />
                     );
                     }}
                     />

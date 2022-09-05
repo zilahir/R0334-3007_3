@@ -8,7 +8,9 @@ const API_ROOT = {
 export const apiEndpoints = {
     getAllEmails: "/email/all",
     sendNewEmail: "/email",
-    getOneEmailById: "/email"
+    getOneEmailById: "/email",
+    generateRandomIncomingEmail: "/email/incoming",
+    markEmailAsRead: "/email"
 }
 
 const apiClient = axios.create({
