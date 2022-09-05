@@ -35,7 +35,8 @@ const Compose = (): ReactElement => {
                                 value={newEmail.to}
                             />
                         </IonItem>
-                        
+                    </IonCard>
+                    <IonCard>
                         <IonItem>
                             <IonInput 
                                 onIonChange={(event => handleNewEmailInput("subject", event.detail.value as string))}
@@ -43,6 +44,8 @@ const Compose = (): ReactElement => {
                                 value={newEmail.subject}
                             />
                         </IonItem>
+                    </IonCard>
+                    <IonCard>
                         <IonItem>
                             <IonTextarea 
                                 onIonChange={event => handleNewEmailInput("content", event.detail.value as string)}

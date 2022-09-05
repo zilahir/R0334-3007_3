@@ -32,9 +32,7 @@ setupIonicReact();
 const App: React.FC = () => {
   return (
     (
-      <IonApp style={{
-        backgroundColor: "#000",
-      }}>
+      <IonApp>
         <IonReactRouter> 
             <IonRouterOutlet>
               <Route path="/">

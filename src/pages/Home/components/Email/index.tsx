@@ -1,4 +1,5 @@
-import { IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonText } from "@ionic/react";
+import { IonCard, IonItemOption, IonItemOptions, IonItemSliding, IonText } from "@ionic/react";
+import { format } from "date-fns"
 
 import { closeCircle, returnDownForward } from 'ionicons/icons';
 import Icon from "../../../../components/common/Icon";
@@ -37,45 +38,59 @@ const Email = ({ email }: IEmail) => (
                 <Icon fontSize={30} icon={returnDownForward} />
             </IonItemOption>
         </IonItemOptions>
-        <IonItem lines="none" style={{
+        <IonCard style={{
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            padding: 10,
+            margin: "3px 15px",
         }}>
             <div style={{
                 alignItems: "center",
                 justifyContent: "center",
                 display: "flex",
-                width: 60,
-                height: 60,
-                borderRadius: "100%",
-                backgroundColor: "#ccc",
-                boxSizing: "border-box",
             }}>
-                <IonText style={{
+                <div style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: "100%",
+                    backgroundColor: "#ccc",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                }}>
+                    <IonText style={{
                     textTransform: "uppercase",
                 }}>
                     {
                         createSenderInitials(email.sender)
                     }
                 </IonText>
+                </div>
             </div>
             <div style={{
                 padding: 10,
                 display: "flex",
                 flexDirection: "column",
-                flex: 1
+                justifyContent: "center",
+                flex: 1,
+                gap: 8,
             }}>
                 <IonText>
                     {
                         createSenderName(email.sender)
                     }
                 </IonText>
-                <IonText>
+                <IonText style={{
+                    fontSize: 20,
+                }}>
                     {createEmailContentExceprt(email.content)}
                 </IonText>
+                <div>
+                    <IonText>
+                        {format(new Date(email.sentAt), "dd.MM.yyyy")}
+                    </IonText>
+                </div>
             </div>
-        </IonItem>
+        </IonCard>
     </IonItemSliding>
 )
 
