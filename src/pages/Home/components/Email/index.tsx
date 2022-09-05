@@ -1,4 +1,4 @@
-import { IonItem, IonItemDivider, IonItemOption, IonItemOptions, IonItemSliding, IonText } from "@ionic/react";
+import { IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonText } from "@ionic/react";
 
 import { closeCircle, returnDownForward } from 'ionicons/icons';
 import Icon from "../../../../components/common/Icon";

@@ -14,7 +14,7 @@ const HomeScreen = (): ReactElement => {
             <IonContent>
             {
                 <Virtuoso
-                    style={{ height: '100%', margin: "0 10px", paddingBottom: 150, }}
+                    style={{ height: '100%' }}
                     totalCount={emails.length}
                     data={emails}
                     itemContent={(index, email) => {
