@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sortBy } from "lodash"
 import apiClient, { apiEndpoints } from "../api/apiClient";
 import { EmailType, NewEmail } from "../screens/Compose";
 
@@ -9,7 +10,8 @@ export function useEmail() {
         toggleLoading(true)
         const apiResult = await apiClient.get(`${apiEndpoints.getAllEmails}/${type}`)
         toggleLoading(false)
-        return apiResult.data
+        const emails = sortBy(apiResult.data.emails, ["sentAt", "isRead"], ["asc"]);
+        return emails;
     }
 
     async function sendEmail(emailBody: NewEmail) {

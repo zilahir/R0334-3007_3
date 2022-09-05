@@ -41,7 +41,6 @@ const Email = ({ email }: IEmail) => {
     });
 
     function handleEmailAsRead(idToMark: string) {
-        console.log("email", email);
         return handleMarkEmailAsReadFn(idToMark);
     }
     return (

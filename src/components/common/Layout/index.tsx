@@ -40,7 +40,8 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
     const { getEmail } = useEmail()
 
     function doRefresh(event: CustomEvent<RefresherEventDetail>) {
-        getEmail(EmailType.INCOMING).then(({emails}) => {
+        getEmail(EmailType.INCOMING.toLowerCase()).then((emails) => {
+            console.log("emails", emails)
             setEmails(emails)
             setTimeout(() => {
                 event.detail.complete();

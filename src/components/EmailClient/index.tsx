@@ -1,4 +1,3 @@
-import { sortBy } from "lodash"
 import { ReactElement, useContext, useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { EmailContext } from "../../api/context";
@@ -20,7 +19,7 @@ const EmailClient = ({children}: IEmailClient): ReactElement => {
     useQuery(["getAllEmail"], getEmailRequest, {
         enabled: true,
         retry: false,
-        onSuccess: (data => setEmails(sortBy(data.emails, ["isRead", "sentAt"], ["asc"])))
+        onSuccess: (data => setEmails(data)),
     })
 
     const { mutate: incomingEmailRequest } = useMutation(["incoming"], randomIncomingEmail, {
