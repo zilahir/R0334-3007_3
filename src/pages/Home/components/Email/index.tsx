@@ -64,7 +64,7 @@ const Email = ({ email }: IEmail) => (
                 padding: 10,
                 display: "flex",
                 flexDirection: "column",
-                flex: 1,
+                flex: 1
             }}>
                 <IonText>
                     {

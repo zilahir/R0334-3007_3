@@ -11,6 +11,7 @@ import {
     } from '@ionic/react';
 import { ReactElement, useContext } from 'react';
 import { addCircle } from 'ionicons/icons';
+
 import useWindowDimensions from '../../../hooks/useWindowDimension';
 import { NotificationContext } from '../Notification/context';
 import Notification from '../Notification';
@@ -20,7 +21,7 @@ interface ILayout {
     customHeader?: ReactElement | ReactElement[];
 }
 
-const Layout = ({ headerTitle, children, customHeader }: ILayout) => {
+const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement => {
 
     const router = useIonRouter();
     const FOB_WIDTH = 56;
@@ -30,15 +31,23 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout) => {
     return (
         (
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        {
-                        customHeader && customHeader
-                        }
-                    </IonToolbar>
-                </IonHeader>
+                {
+                    customHeader && (
+                        <IonHeader>
+                            <IonToolbar>
+                                {
+                                customHeader
+                                }
+                            </IonToolbar>
+                        </IonHeader>
+                    )
+                }
                 <IonContent>
-                    <IonHeader collapse="condense">
+                    <IonHeader style={{
+                        height: 140,
+                        display: "flex",
+                        alignItems: "center",
+                    }} collapse="fade">
                         <IonToolbar>
                             <IonTitle size="large">
                                 {headerTitle}
