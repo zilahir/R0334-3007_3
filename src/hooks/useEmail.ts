@@ -10,7 +10,7 @@ export function useEmail() {
         toggleLoading(true)
         const apiResult = await apiClient.get(`${apiEndpoints.getAllEmails}/${type}`)
         toggleLoading(false)
-        const emails = sortBy(apiResult.data.emails, ["sentAt", "isRead"], ["asc"]);
+        const emails = sortBy(apiResult.data.emails, ["sentAt"], ["desc"]);
         return emails;
     }
 
