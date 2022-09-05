@@ -20,7 +20,7 @@ import { NotificationContext } from '../Notification/context';
 import Notification from '../Notification';
 import { useEmail } from '../../../hooks/useEmail';
 import { EmailContext } from '../../../api/context';
-import Loader from '../Loader';
+
 interface ILayout {
     headerTitle: string;
     children: ReactElement | ReactElement[];
@@ -33,17 +33,14 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
     const FOB_WIDTH = 56;
     const { width, height } = useWindowDimensions();
     const { notifications } = useContext(NotificationContext)
-    const [isLoading, toggleLoading] = useState<boolean>(false);
 
     const { setEmails } = useContext(EmailContext)
     const { getEmail } = useEmail()
 
     function doRefresh(event: CustomEvent<RefresherEventDetail>) {
-        toggleLoading(true)
         getEmail().then(({emails}) => {
             setEmails(emails)
             setTimeout(() => {
-                toggleLoading(false)
                 event.detail.complete();
             }, 3000)
         })
@@ -87,7 +84,7 @@ const Layout = ({ headerTitle, children, customHeader }: ILayout): ReactElement 
                             </IonTitle>
                         </IonToolbar>
                     </IonHeader>
-                    {!isLoading && children}
+                    {children}
                 </IonContent>
                 {
                     router.routeInfo.pathname !== '/compose' && (

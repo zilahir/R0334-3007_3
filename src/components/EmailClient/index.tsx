@@ -18,10 +18,6 @@ const EmailClient = ({children}: IEmailClient): ReactElement => {
         onSuccess: (data => setEmails(sortBy(data.emails, ["sentAt"], ["asc"])))
     })
 
-    useEffect(() => {
-
-    }, [])
-
     return (
         <>
             {children}
