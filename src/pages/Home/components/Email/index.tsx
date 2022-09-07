@@ -5,7 +5,6 @@ import { closeCircle, returnDownForward } from 'ionicons/icons';
 import { useContext } from "react";
 import { useMutation, useQuery } from "react-query";
 import { EmailContext } from "../../../../api/context";
-// import { EmailContext } from "../../../../api/context";
 import Icon from "../../../../components/common/Icon";
 import { useEmail } from "../../../../hooks/useEmail";
 import { EmailType } from "../../../../screens/Compose";
