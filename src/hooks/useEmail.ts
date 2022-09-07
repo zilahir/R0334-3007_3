@@ -2,7 +2,7 @@ import { useState } from "react";
 import { sortBy } from "lodash"
 import apiClient, { apiEndpoints } from "../api/apiClient";
 import { EmailType, NewEmail } from "../screens/Compose";
-import { SingleEmail } from "../pages/Home/components/Email";
+import { SingleEmail } from "../screens/Home/components/Email";
 
 export function useEmail() {
 

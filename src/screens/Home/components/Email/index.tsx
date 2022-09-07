@@ -7,7 +7,7 @@ import { useMutation, useQuery } from "react-query";
 import { EmailContext } from "../../../../api/context";
 import Icon from "../../../../components/common/Icon";
 import { useEmail } from "../../../../hooks/useEmail";
-import { EmailType } from "../../../../screens/Compose";
+import { EmailType } from "../../../Compose";
 
 export interface SingleEmail {
     sender: string;

@@ -1,7 +1,7 @@
 import { createContext, ReactElement, useState, Dispatch, SetStateAction } from "react";
 import { useEmail } from "../../hooks/useEmail";
-import { SingleEmail } from "../../pages/Home/components/Email";
 import { NewEmail } from "../../screens/Compose";
+import { SingleEmail } from "../../screens/Home/components/Email";
 
 interface EmailContextState {
     emails: SingleEmail[],
