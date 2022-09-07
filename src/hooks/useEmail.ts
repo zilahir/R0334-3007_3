@@ -2,6 +2,7 @@ import { useState } from "react";
 import { sortBy } from "lodash"
 import apiClient, { apiEndpoints } from "../api/apiClient";
 import { EmailType, NewEmail } from "../screens/Compose";
+import { SingleEmail } from "../pages/Home/components/Email";
 
 export function useEmail() {
 
@@ -9,8 +10,13 @@ export function useEmail() {
     async function getEmail(type: string) {
         toggleLoading(true)
         const apiResult = await apiClient.get(`${apiEndpoints.getAllEmails}/${type}`)
-        toggleLoading(false)
-        const emails = sortBy(apiResult.data.emails, ["sentAt"], ["desc"]);
+        const emails = [
+            ...sortBy(apiResult.data.emails.filter(({isRead}: SingleEmail) => isRead !== true), ["sentAt"], ["desc"]),
+            ...apiResult.data.emails.filter(({ isRead }: SingleEmail) => isRead === true)
+        ];
+        setTimeout(() => {
+            toggleLoading(false)
+        }, 1500)
         return emails;
     }
 
@@ -35,5 +41,5 @@ export function useEmail() {
         return apiResult.data;
     }
 
-    return {getEmail, sendEmail, isLoading, randomIncomingEmail, markEmailAsReadById}
+    return {getEmail, sendEmail, isLoading, randomIncomingEmail, markEmailAsReadById, toggleLoading}
 }

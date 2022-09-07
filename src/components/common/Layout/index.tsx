@@ -21,6 +21,7 @@ import Notification from '../Notification';
 import { useEmail } from '../../../hooks/useEmail';
 import { EmailContext } from '../../../api/context';
 import { EmailType } from '../../../screens/Compose';
+import Loader from '../Loader';
 
 interface ILayout {
     headerTitle: string;
@@ -37,7 +38,7 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
     const { notifications } = useContext(NotificationContext)
 
     const { setEmails } = useContext(EmailContext)
-    const { getEmail } = useEmail()
+    const { getEmail, isLoading } = useEmail()
 
     function doRefresh(event: CustomEvent<RefresherEventDetail>) {
         getEmail(EmailType.INCOMING.toLowerCase()).then((emails) => {
@@ -51,7 +52,8 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
   
     return (
         (
-            <IonPage>
+            !isLoading ? (
+                <IonPage>
                 {
                     customHeader && (
                         <IonHeader>
@@ -63,57 +65,62 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
                         </IonHeader>
                     )
                 }
-                <IonContent>
-                    <IonRefresher
-                        style={{
-                            top: 50,
-                        }}
-                        slot='fixed'
-                        onIonRefresh={(event): void => doRefresh(event)}
-                    >
-                        <IonRefresherContent 
-                            refreshingSpinner="dots"
-                            pullingText="Pull to refresh"
-                        />
-                    </IonRefresher>
-                    <IonHeader style={{
-                        height: headerHeight || "unset",
-                        display: "flex",
-                        alignItems: "center",
-                    }} collapse="fade">
-                        <IonToolbar>
-                            <IonTitle size="large">
-                                {headerTitle}
-                            </IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
-                    {children}
-                </IonContent>
-                {
-                    router.routeInfo.pathname !== '/compose' && (
-                        <IonFab style={{
-                            position: "absolute",
-                            left: width - FOB_WIDTH - FOB_WIDTH * 0.5,
-                            top: height - FOB_WIDTH - FOB_WIDTH * 0.5,
-                      
-                        }}>
-                            <IonFabButton href="/compose">
-                                <IonIcon icon={addCircle} />
-                            </IonFabButton>
-                        </IonFab>
-                    )
-                }
-                {
-                    notifications.map(({message, severity, timestamp}) => (
-                        <Notification
-                            severity={severity}
-                            message={message}
-                            timestamp={timestamp}
-                        />
-                    ))
-                }
+                    <IonContent>
+                        <IonRefresher
+                            style={{
+                                top: 50,
+                            }}
+                            slot='fixed'
+                            onIonRefresh={(event): void => doRefresh(event)}
+                        >
+                            <IonRefresherContent 
+                                refreshingSpinner="dots"
+                                pullingText="Pull to refresh"
+                            />
+                        </IonRefresher>
+                        <IonHeader style={{
+                            height: headerHeight || "unset",
+                            display: "flex",
+                            alignItems: "center",
+                        }} collapse="fade">
+                            <IonToolbar>
+                                <IonTitle size="large">
+                                    {headerTitle}
+                                </IonTitle>
+                            </IonToolbar>
+                        </IonHeader>
+                        {children}
+                    </IonContent>
+                    {
+                        router.routeInfo.pathname !== '/compose' && (
+                            <IonFab style={{
+                                position: "absolute",
+                                left: width - FOB_WIDTH - FOB_WIDTH * 0.5,
+                                top: height - FOB_WIDTH - FOB_WIDTH * 0.5,
+                        
+                            }}>
+                                <IonFabButton href="/compose">
+                                    <IonIcon icon={addCircle} />
+                                </IonFabButton>
+                            </IonFab>
+                        )
+                    }
+                    {
+                        notifications.map(({message, severity, timestamp}) => (
+                            <Notification
+                                severity={severity}
+                                message={message}
+                                timestamp={timestamp}
+                            />
+                        ))
+                    }
+                </IonPage>
+        ) : <IonPage>
+            <IonContent fullscreen>
+                <Loader message='Emails are loading!' />
+            </IonContent>
         </IonPage>
-            )
+        )
     )
 }
 

@@ -1,5 +1,5 @@
-import { ReactElement, useContext, useEffect } from "react";
-import { useMutation, useQuery } from "react-query";
+import { ReactElement, useContext } from "react";
+import { useQuery } from "react-query";
 import { EmailContext } from "../../api/context";
 import { useEmail } from "../../hooks/useEmail";
 import { EmailType } from "../../screens/Compose";
@@ -9,7 +9,7 @@ interface IEmailClient {
 }
 
 const EmailClient = ({children}: IEmailClient): ReactElement => {
-    const { getEmail, randomIncomingEmail } = useEmail()
+    const { getEmail } = useEmail()
     const { setEmails } = useContext(EmailContext)
 
     function getEmailRequest() {
@@ -21,14 +21,6 @@ const EmailClient = ({children}: IEmailClient): ReactElement => {
         retry: false,
         onSuccess: (data => setEmails(data)),
     })
-
-    const { mutate: incomingEmailRequest } = useMutation(["incoming"], randomIncomingEmail, {
-        retry: false,
-    })
-
-    useEffect(() => {
-        // incomingEmailRequest()
-    }, [])
 
     return (
         <>
