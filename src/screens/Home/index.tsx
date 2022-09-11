@@ -21,11 +21,11 @@ const HomeScreen = (): ReactElement => {
                     totalCount={emails.length}
                     data={emails}
                     itemContent={(index, email) => {
-                    return (
-                        <Email key={email._id} email={email} />
-                    );
+                        return (
+                            <Email key={email._id} email={email} />
+                        );
                     }}
-                    />
+                />
             }
             </IonContent>
         </Layout>

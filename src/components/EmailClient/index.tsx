@@ -10,16 +10,22 @@ interface IEmailClient {
 
 const EmailClient = ({children}: IEmailClient): ReactElement => {
     const { getEmail } = useEmail()
-    const { setEmails } = useContext(EmailContext)
+    const { setEmails, setSentEmails } = useContext(EmailContext)
 
-    function getEmailRequest() {
-        return getEmail(EmailType.INCOMING.toLowerCase())
+    function getEmailRequest(type: EmailType) {
+        return getEmail(type.toLowerCase() as EmailType as string)
     }
 
-    useQuery(["getAllEmail"], getEmailRequest, {
+    useQuery(["getAllIncoming", EmailType.INCOMING], () => getEmailRequest(EmailType.INCOMING), {
         enabled: true,
         retry: false,
         onSuccess: (data => setEmails(data)),
+    })
+
+    useQuery(["getAllOutGoing", EmailType.OUTGOING], () => getEmailRequest(EmailType.OUTGOING), {
+        enabled: true,
+        retry: false,
+        onSuccess: (data => setSentEmails(data)),
     })
 
     return (

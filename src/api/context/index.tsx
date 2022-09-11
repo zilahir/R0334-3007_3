@@ -9,6 +9,8 @@ interface EmailContextState {
     newEmail: NewEmail,
     composeNewEmail: Dispatch<SetStateAction<NewEmail>>
     isLoading: boolean,
+    sentEmails: SingleEmail[],
+    setSentEmails: Dispatch<SetStateAction<SingleEmail[]>>
 }
 
 export const EmailContext = createContext({} as EmailContextState)
@@ -19,11 +21,21 @@ interface IEmailContextProvider {
 
 const RootContextProvider = ({children}: IEmailContextProvider) => {
     const [emails, setEmails] = useState<SingleEmail[]>([])
+    const [sentEmails, setSentEmails] = useState<SingleEmail[]>([])
     const [newEmail, composeNewEmail] = useState<NewEmail>({} as NewEmail)
     const { isLoading } = useEmail()
 
     return (
-        <EmailContext.Provider value={{emails, setEmails, newEmail, composeNewEmail, isLoading}}>
+        <EmailContext.Provider
+            value={{
+                emails,
+                setEmails,
+                newEmail,
+                composeNewEmail,
+                isLoading,
+                sentEmails,
+                setSentEmails,
+            }}>
             {children}
         </EmailContext.Provider>
     )
