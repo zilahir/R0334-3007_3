@@ -34,6 +34,7 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
 
     const router = useIonRouter();
     const FOB_WIDTH = 56;
+    const BOTTOM_TAB_HEIGHT = 60
     const { width, height } = useWindowDimensions();
     const { notifications } = useContext(NotificationContext)
 
@@ -96,7 +97,7 @@ const Layout = ({ headerTitle, children, customHeader, headerHeight }: ILayout):
                             <IonFab style={{
                                 position: "absolute",
                                 left: width - FOB_WIDTH - FOB_WIDTH * 0.5,
-                                top: height - FOB_WIDTH - FOB_WIDTH * 0.5,
+                                top: (height - FOB_WIDTH - FOB_WIDTH * 0.5) - (BOTTOM_TAB_HEIGHT + BOTTOM_TAB_HEIGHT * 0.5),
                         
                             }}>
                                 <IonFabButton href="/compose">

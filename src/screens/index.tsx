@@ -1,8 +1,8 @@
 import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { ReactElement } from "react";
-import { ellipse, square, triangle } from 'ionicons/icons';
-import { Route } from "react-router-dom";
+import { homeOutline, logOutOutline, mailOutline } from 'ionicons/icons';
+import { Redirect, Route } from "react-router-dom";
 
 import Compose from "./Compose";
 import HomeScreen from "./Home";
@@ -20,22 +20,29 @@ const appRoutes: ReadonlyArray<Screen> = [
     {
         name: "Home",
         path: "/",
+        Screen: <Redirect to="/home" />,
+        onTab: false,
+    },
+    {
+        name: "Home",
+        path: "/home",
         Screen: <HomeScreen />,
         onTab: true,
-        icon: ellipse,
+        icon: homeOutline,
     },
     {
         name: "Compose",
         path: "/compose",
         Screen: <Compose />,
         onTab: false,
+        icon: logOutOutline,
     },
     {
         name: "Sent",
         path: "/sent",
         Screen: <Sent />,
         onTab: true,
-        icon: square,
+        icon: mailOutline,
     }
 ]
 
