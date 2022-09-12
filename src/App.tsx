@@ -29,6 +29,7 @@ import AppRoutes from './screens';
 setupIonicReact();
 
 const App: React.FC = () => {
+  console.log("process", process.env)
   return (
     (
       <IonApp>

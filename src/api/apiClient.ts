@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API_ROOT = {
-    production: undefined,
+    production: process.env.REACT_APP_PRODUCTION_API,
     dev: "http://localhost:4000"
 }
 
@@ -14,7 +14,7 @@ export const apiEndpoints = {
 }
 
 const apiClient = axios.create({
-    baseURL: API_ROOT["dev"],
+    baseURL: API_ROOT["production"],
     withCredentials: false,
 })
 
